@@ -72,7 +72,16 @@ class BlogPostInFeed extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const FullLengthPost(),
+                    builder: (context) => FullLengthPost(
+                      title: snap['blogTitle'],
+                      postUrl: snap['postUrl'],
+                      profilepicUrl: snap['profileImg'],
+                      username: snap['username'],
+                      date: DateFormat.yMMMd().format(
+                        snap['datePublished'].toDate(),
+                      ),
+                      content: snap['blogContent'],
+                    ),
                   ),
                 );
               },
