@@ -1,7 +1,10 @@
+import 'package:blog_bud/models/user.dart';
+import 'package:blog_bud/provider/user_provider.dart';
 import 'package:blog_bud/utils/app_styles.dart';
 import 'package:blog_bud/widgets/custom_full_length_post.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BlogPostInFeed extends StatelessWidget {
   final snap;
@@ -18,6 +21,7 @@ class BlogPostInFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final User user = Provider.of<UserProvider>(context).getUser;
     return Container(
       color: Colors.amber,
       width: double.infinity,
@@ -81,6 +85,9 @@ class BlogPostInFeed extends StatelessWidget {
                         snap['datePublished'].toDate(),
                       ),
                       content: snap['blogContent'],
+                      postId: snap['postId'],
+                      uid: user.uid,
+                      likes: snap['likes'],
                     ),
                   ),
                 );

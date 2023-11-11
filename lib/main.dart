@@ -1,5 +1,6 @@
 import 'package:blog_bud/firebase_options.dart';
 import 'package:blog_bud/layout/mobile_screen_layout.dart';
+import 'package:blog_bud/provider/like_button_provider.dart';
 import 'package:blog_bud/provider/user_provider.dart';
 import 'package:blog_bud/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LikeButtonProvider(),
         ),
       ],
       child: MaterialApp(

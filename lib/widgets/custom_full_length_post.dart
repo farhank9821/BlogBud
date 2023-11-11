@@ -1,5 +1,8 @@
+import 'package:blog_bud/provider/like_button_provider.dart';
+import 'package:blog_bud/resources/firestore_methods.dart';
 import 'package:blog_bud/utils/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FullLengthPost extends StatefulWidget {
   final String title;
@@ -8,30 +11,58 @@ class FullLengthPost extends StatefulWidget {
   final String date;
   final String username;
   final String content;
-  const FullLengthPost({
-    super.key,
-    required this.title,
-    required this.postUrl,
-    required this.profilepicUrl,
-    required this.username,
-    required this.date,
-    required this.content,
-  });
+  final List likes;
+  final String postId;
+  final String uid;
+  const FullLengthPost(
+      {super.key,
+      required this.title,
+      required this.postUrl,
+      required this.profilepicUrl,
+      required this.username,
+      required this.date,
+      required this.content,
+      required this.likes,
+      required this.postId,
+      required this.uid});
 
   @override
   State<FullLengthPost> createState() => _FullLengthPostState();
 }
 
 class _FullLengthPostState extends State<FullLengthPost> {
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
+    final likeButton = Provider.of<LikeButtonProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.favorite_border),
+          InkWell(
+            onTap: () async {
+              await FirestoreMethods()
+                  .likes(widget.postId, widget.uid, widget.likes);
+              likeButton.toggleLike(widget.postId);
+            },
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: likeButton.isPostLiked(widget.postId)
+                    ? Colors.red
+                    : Colors.grey,
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.favorite,
+                  color: Colors.white,
+                  size: 24.0,
+                ),
+              ),
+            ),
           ),
           IconButton(
             onPressed: () {},
