@@ -1,13 +1,11 @@
 import 'dart:typed_data';
 import 'package:blog_bud/models/user.dart';
 import 'package:blog_bud/provider/user_provider.dart';
-import 'package:blog_bud/resources/auth_methods.dart';
 import 'package:blog_bud/resources/firestore_methods.dart';
 import 'package:blog_bud/screens/upload_screen/preview_screen.dart';
 import 'package:blog_bud/utils/utils.dart';
 import 'package:blog_bud/widgets/custom_snack_bar.dart';
 import 'package:blog_bud/widgets/custom_text_field.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
